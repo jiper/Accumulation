@@ -1,0 +1,17 @@
+假设新开发的版本是feature，已经验证成功，需要让develop合并新分支
+
+develop ->
+        |->feature -> step1 -> step2 -> ... -> feature
+
+
+1. 确保feature是clean状态
+git status //看清楚了
+
+2. 切换到develop分支
+git checkout develop
+
+3. 执行合并 // 建议merge时总是使用 --no-ff选项
+git merge --no--ff feature
+
+develop ->----------------------------------------------> develop
+        |->feature -> step1 -> step2 -> ... -> feature-----^

@@ -1,0 +1,3 @@
+必须使能两个插件才可以在console上删除exchange和queue
+输入如下命令即可
+$ rabbitmq-plugins enable rabbitmq_shovel rabbitmq_shovel_management

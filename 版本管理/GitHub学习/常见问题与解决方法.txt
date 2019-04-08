@@ -1,0 +1,10 @@
+1、HttpRequestException encountered
+    https://www.jianshu.com/p/53128955cc02
+   使用Git下载或者更新代码时出现fatal：HttpRequestException encountered提示信息，但是它又不会影响Git的正常使用
+出现该提示信息的主要原因是Github禁用了TLS v1.0 and v1.1这种弱加密标准，此时需要手动更新Windows的git凭证管理器，更新方式很简单，在网站下载Git在Window上的凭证管理器并默认安装即可
+
+作者：晓序东风
+链接：https://www.jianshu.com/p/53128955cc02
+来源：简书
+简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+  

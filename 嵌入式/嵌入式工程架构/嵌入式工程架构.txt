@@ -1,0 +1,15 @@
+时间：2018.1.19
+版本:V1.0
+
+内核接口和底层驱动
+1、Cortex内核提供的CMSIS（CMISIS：微控制器软件接口标准）
+2、芯片供应商提供的SDK （SDK：software developer kit）,对应就是一些底层的驱动
+
+板级驱动包装
+对会用到的底层驱动进行一层包装
+
+算法层
+.h头文件 .lib库文件 .dll动态库文件之间的关系：http://blog.csdn.net/yusiguyuan/article/details/12649737
+
+用户层
+对算法进行包装，提供给用户简单清晰可调用的函数接口，屏蔽具体的实现方式

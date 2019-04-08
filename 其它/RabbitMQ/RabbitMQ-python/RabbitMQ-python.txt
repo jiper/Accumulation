@@ -1,0 +1,61 @@
+----------------------send.py--------------------------------
+import pika
+
+#¨®?RabbitMQ¡¤t???¡Â?¡§¨¢¡é¨¢??¨®
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()   
+
+#¨¦¨´?¡Â?¨®¨¢D
+#durable2?¨ºy¨®?¨®¨²¨¦¨¨???¨®¨¢D?a3???¦Ì?¡ê??a?¨´RabbitMQ¨ª?3??¨°¡À¨¤¨¤¡ê¡ê??¨®¨¢D?D¦Ì?D??¡é¦Ì?¨°?¡À¡ê3?
+channel.queue_declare(queue='task_queue', durable=True)
+
+#¡ä¡ä?¡§exchange
+channel.exchange_declare(exchange='logs',
+                         exchange_type='fanout')
+
+
+#basic_publish?a???¡é¡¤¡é?¨ª¦Ì??¡Â¨¬?
+channel.basic_publish(exchange='logs',
+                      routing_key='hello',
+                      body='Hello World¡ê?'
+                      properties=pika.BasicProperties(
+                          delivery_mode=2,  # ¨¨¡¤¡À¡ê???¡é¨º?3???¦Ì?)
+                       )
+ 
+                      
+print(" [x] Sent 'Hello World!'")
+connection.close()
+
+------------------------------------------------------
+import pika
+
+#¨®?RabbitMQ¡¤t???¡Â?¡§¨¢¡é¨¢??¨®
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
+
+#durable2?¨ºy¨®?¨®¨²¨¦¨¨???¨®¨¢D?a3???¦Ì?¡ê??a?¨´RabbitMQ¨ª?3??¨°¡À¨¤¨¤¡ê¡ê??¨®¨¢D?D¦Ì?D??¡é¦Ì?¨°?¡À¡ê3?
+channel.queue_declare(queue='task_queue', durable=True)
+
+#¨¦¨´?¡Â¡ã¨®?¡§
+channel.queue_bind(exchange=exchange_name,
+                   queue=queue_name,
+                   routing_key='black')
+                   
+
+#?¡§¨°???¦Ì¡Âo¡¥¨ºy
+def callback(ch, method, propertites, body):
+    print(" [x] Received {}".format(body))
+
+#basic_consume?a???¡é¡¤¡é?¨ª¦Ì??¡Â¨¬?
+#no_ack2?¨ºy??¨¨??aTrue¡ê?¡À¨ª¨º?¡ä¨°?a¨¢????¡é¨¨¡¤¨¨?¡ê???¡¤???¨º?¦Ì????¡é2¡é¡ä|¨¤¨ª???¡éo¨®¡ê??¨¢¡¤¡é??ack???¡é?¡ê¡ä??¨²??¨¨¡¤¡À¡ê??¨®DD??¡é?a¨º¡ì
+channel.basic_consume(callable,
+                      queue='hello',
+                      no_ack=True)
+
+#prefetch_count???¡§??¡ä?¡¤¡é¡¤???¨®??¡ì¦Ì????¡é¨ºy
+channel.basic_qos(prefetch_count=1)
+
+print(' [*] Waiting for messages. To exit press CTRL+C')
+
+#?¨¤¨¬y
+channel.start_consuming()

@@ -1,0 +1,205 @@
+http://blog.51cto.com/8415580/1351328
+
+
+pika提供了支持异步发送模式的selectconnection方法支持异步发送接收（通过回调的方式）
+connectioon建立时回调建立channel， channel建立时一次回调各种declare方法，declare建立时依次回调publish。
+同使用blockconnection方法相比，通过wireshark抓包来看，使用 异步的方式会对发包进行一些优化，会将几个包合并成一个大包，然后做一次ack应答从而提高效率，与之相反使用blockconnection时将会做至少两次ack，head一次content一次等
+因此再试用异步的方式时会获得一定的优化 
+
+异步publish
+
+import pika
+
+
+def on_open(connection):
+   connection.channel(on_channel_open)
+
+
+import time as timer
+from time import time
+
+
+def on_channel_open(channel):
+   message = 'message body value' * 100
+   start = time()
+   for i in range(5):
+       channel.basic_publish('test_exchange',
+                           'test_routing_key',
+                           message,
+                           pika.BasicProperties(content_type='text/plain',
+                                                delivery_mode=1))
+       if  i % 1000 == 0:
+           print 'publish', i
+#         timer.sleep(10)
+   end = time() - start
+   print end
+   connection.close()
+
+# Step #1: Connect to RabbitMQ
+parameters = pika.URLParameters('amqp://guest:guest@localhost:5672/%2F')
+
+connection = pika.SelectConnection(parameters=parameters,
+                                  on_open_callback=on_open)
+
+try:
+
+   # Step #2 - Block on the IOLoop
+   connection.ioloop.start()
+
+# Catch a Keyboard Interrupt to make sure that the connection is closed cleanly
+except KeyboardInterrupt:
+
+   # Gracefully close the connection
+   connection.close()
+
+   # Start the IOLoop again so Pika can communicate, it will stop on its own when the connection is closed
+   connection.ioloop.start()
+
+异步consume
+
+import pika
+import logging
+import time as timer
+from time import time
+
+
+mylog = logging.getLogger('pika')
+mylog.setLevel(logging.ERROR)
+ch = logging.StreamHandler()
+ch.setLevel(logging.ERROR)
+mylog.addHandler(ch)
+
+
+def on_open(connection):
+
+   connection.channel(on_channel_open)
+
+begin_time = time()
+
+
+def on_message(unused_channel, basic_deliver, properties, body):
+   print " [x] Received %r,%d" % (body, time() - begin_time)
+   timer.sleep(0.1)
+   unused_channel.basic_ack(delivery_tag=basic_deliver.delivery_tag)
+
+
+def on_channel_open(channel):
+   try:
+       channel.basic_consume(on_message, queue='test_routing_key', no_ack=False)
+       channel.start_consuming()
+   except Exception, e:
+       print Exception, e
+
+
+# Step #1: Connect to RabbitMQ
+parameters = pika.URLParameters('amqp://guest:guest@localhost:5672/%2F')
+
+connection = pika.SelectConnection(parameters=parameters,
+                                  on_open_callback=on_open)
+
+channelg = None
+
+try:
+
+   # Step #2 - Block on the IOLoop
+   connection.ioloop.start()
+
+# Catch a Keyboard Interrupt to make sure that the connection is closed cleanly
+except KeyboardInterrupt:
+
+   # Gracefully close the connection
+   connection.close()
+
+   # Start the IOLoop again so Pika can communicate, it will stop on its own when the connection is closed
+   connection.ioloop.start()
+
+
+
+异步get
+
+import pika
+import logging
+import sys
+import time as timer
+from time import time
+from pika.spec import Basic
+
+mylog = logging.getLogger('pika')
+mylog.setLevel(logging.CRITICAL)
+ch = logging.StreamHandler()
+ch.setLevel(logging.ERROR)
+mylog.addHandler(ch)
+
+
+start = 0
+end = 0
+
+
+def on_open(connection):
+
+   connection.channel(on_channel_open)
+
+begin_time = time()
+
+
+def on_message(unused_channel, basic_deliver, properties, body):
+   print " [x] Received %r,%s,%d" % (basic_deliver, body, time() - begin_time)
+   timer.sleep(0.1)
+#     on_next_message()
+   unused_channel.basic_ack(delivery_tag=basic_deliver.delivery_tag)
+
+
+def get_message():
+   try:
+#         channel.basic_consume(on_message, queue='test_routing_key', no_ack=True)
+       channelg.basic_get(callback=on_message, queue='test_routing_key', no_ack=False)
+       on_next_message()
+   except Exception, e:
+       print Exception, e
+
+
+def on_next_message():
+   connection.add_timeout(0.001, get_message)
+
+
+def callback(basic_deliver):
+   print basic_deliver.method
+   if isinstance(basic_deliver.method, Basic.GetOk):
+       return
+   print 'empty', basic_deliver
+   global end
+   end = time() - start
+   print end
+   sys.exit()
+
+
+def on_channel_open(channel):
+   global channelg
+   channelg = channel
+   channelg.add_callback(callback, replies=(Basic.GetEmpty,), one_shot=True)
+   global start
+   start = time()
+   on_next_message()
+
+
+# Step #1: Connect to RabbitMQ
+parameters = pika.URLParameters('amqp://guest:guest@localhost:5672/%2F')
+
+connection = pika.SelectConnection(parameters=parameters,
+                                  on_open_callback=on_open)
+
+channelg = None
+
+try:
+
+   # Step #2 - Block on the IOLoop
+   connection.ioloop.start()
+
+# Catch a Keyboard Interrupt to make sure that the connection is closed cleanly
+except KeyboardInterrupt:
+
+   # Gracefully close the connection
+   connection.close()
+
+   # Start the IOLoop again so Pika can communicate, it will stop on its own when the connection is closed
+   connection.ioloop.start()

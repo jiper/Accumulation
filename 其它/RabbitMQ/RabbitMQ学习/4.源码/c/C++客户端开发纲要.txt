@@ -1,0 +1,3 @@
+首先找一个合适的RMQ的C库函数
+
+搞明白librabbitmq和libamqpcpp的关系。。。

@@ -1,0 +1,5 @@
+1、致Python初学者们 - Anaconda入门使用指南
+https://www.jianshu.com/p/169403f7e40c
+
+2、Anaconda完全入门指南
+https://www.jianshu.com/p/eaee1fadc1e9

@@ -1,0 +1,66 @@
+https://blog.csdn.net/hui1788/article/details/79946619
+
+1. 安装erlang和rabbitmq
+sudo apt-get install erlang-nox
+sudo apt-get update
+sudo apt-get install rabbitmq-server
+检查安装情况： ps -ef|grep rabbit
+
+2. 服务启动和停止命令
+启动：sudo rabbitmq-server start
+关闭： sudo rabbitmq-server stop
+重启： sudo rabbitmq-server restart
+查看状态：sudo rabbitmqctl status
+
+3. 检查配置状态
+cd /usr/lib/rabbitmq/bin/
+sudo ./rabbitmqctl status
+发现有错误：TCP connection succeeded but Erlang distribution failed
+此时需要先关闭服务，然后修改配置文件，再开启服务（此时无法连接控制台）
+具体解决步骤如下：
+3.1 /usr/lib/rabbitmq/bin$ invoke-rc.d rabbitmq-server stop
+3.2 进入安装文件夹/usr/lib/rabbitmq/bin,修改rabbitmqctl文件
+查找位置并添加一行语句
+RABBITMQ_USE_LONGNAME=${RABBITMQ_USE_LONGNAME} \
+HOME=/var/lib/rabbitmq  \   <-----添加这一行语句
+exec ${ERL_DIR}erl \
+3.3 开启web控制台服务
+/usr/lib/rabbitmq/bin$ sudo rabbitmq-server start 先重新开启服务
+/usr/lib/rabbitmq/bin$ sudo ./rabbitmq-plugins enable rabbitmq_management  再开启web控制台服务
+打开网址并登陆： 127.0.0.1:15672    账号：guest       密码：guest 
+
+//常用服务命令
+查看rabbitmq-server有没有安装好，能查到说明已经安装成功了
+rpm -qa|grep rabbitmq
+
+开启server命令
+sudo service rabbitmq-server start
+sudo service rabbitmq-server restart
+
+关闭服务
+sudo service rabbitmq-server stop
+
+开启服务器维护插件（6个）
+rabbitmq-plugins enable rabbitmq_management 
+
+//实现远程操作
+4.必须创建一个新的管理员账号，默认的guest只能监听localhost
+用户配置
+创建新的用户：sudo rabbitmqctl  add_user yinchao 123456
+设置管理员标签：sudo rabbitmqctl  set_user_tags yinchao administrator
+增加yinchao账户的所有权限： sudo rabbitmqctl set_permissions -p "/" yinchao ".*" ".*" ".*"
+
+查看与删除用户（把系统默认的那个guest删了去）
+sudo rabbitmqctl  list_users
+sudo rabbitmqctl delete_user username
+修改密码：
+rabbitmqctl  oldPassword  Username  newPassword
+
+5. 新建配置rabbit.config文件，添加远程连接的部分
+配置文件存放地址：/etc/rabbitmq/rabbitmq.config 
+rabbit.config
+[                                                                                                                                   
+{rabbit, [{tcp_listeners, [5672]}, {loopback_users, ["yinchao"]}]}
+].
+
+6. 测试端口是否已经监听，查看是否可以通过ip:15672的方式在浏览器中远程打开控制台

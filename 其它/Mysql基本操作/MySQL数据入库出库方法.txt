@@ -1,0 +1,37 @@
+
+------------------------------------------------------------------------------------
+入库
+
+1. 准备好csv文件
+
+2.建数据库、表格、表头
+create table hk_insider
+(
+    series INT(10),
+    id INT(6),
+    date DATE,
+    name VARCHAR(10),
+    quant VARCHAR(20),
+    rate FLOAT(6),
+    PRIMARY KEY (date)
+);
+
+3.
+load data infile 'test.csv'  
+into table hk_insider character set gb2312  
+fields terminated by ',' optionally enclosed by '"' escaped by '"'  
+lines terminated by '\r\n';  
+
+出现了ERROR 2190（HY000）的错误，表示MySQL的配置禁止导入导出
+解决方法：
+1. show variables like '%secure%'; 
+查看secure_file_priv的权限，如果为NULL，说明被禁止，如果没有，则数据必须放到其指定文件夹下
+如果修改secure_file_priv="path",则可以放到path文件夹下了
+
+
+------------------------------------------------------------------------------------
+出库
+select * from hk_insider  
+into outfile '2.csv'  character set gb2312    
+fields terminated by ',' optionally enclosed by '"' escaped by '"'   
+lines terminated by '\r\n'; 

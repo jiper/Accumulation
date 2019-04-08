@@ -1,0 +1,9 @@
+﻿如何在ubuntu中实现C++单步调试
+
+https://blog.csdn.net/weixin_43374723/article/details/84064644#1_Vscode_1
+https://www.cnblogs.com/lidabo/p/5888997.html
+
+1、安装vscode并配置C++的运行环境
+2、更新配置文件launch.json 和 task.json
+注意：g++编译时一定要增加-g选项才能实现单步调试
+

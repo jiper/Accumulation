@@ -1,0 +1,8 @@
+git rebase br
+
+冲突解决后
+git -add
+git rebase --continue
+
+需要放弃的时候
+git rebase --abort

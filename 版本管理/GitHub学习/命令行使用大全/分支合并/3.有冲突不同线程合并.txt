@@ -1,0 +1,27 @@
+有冲突的合并一般出现在并行开发的过程中
+情景描述：
+开发者1和开发者2同时从服务器拉取了origin版本进行协同开发，开发过程中1首先修改了代码并同步
+到了origin，同时开发者2也修改了本地代码，但是肯定会与origin有冲突，此时的合并会出现问题
+origin-|---------------------->origin
+       |->user1->step1->step2-^
+       |->user2->step3->step4-....->stepn
+
+问题化简到user2分支与origin分支的合并，但是两个分支有冲突
+
+1.切换到user2的分支，确保操作前一定是clean的
+git checkout user2
+git status
+
+2.利用rebase进行精简式的合并（无用的老旧分支都会被删除），也可以利用merge合并
+git rebase origin //此处会出现冲突
+
+3.利用kdiff3软件进行手动冲突解除操作，并保存文件
+
+4.得到了无冲突的文件后继续操作，直至合并成功
+git -add //更新内容
+git rebase --continue
+
+最终的结果是user2获取了origin的最新内容，同时分支仍然处于user2上面
+
+任何情况下，如果觉得不想继续合并，直接
+git rebase --abort 即可

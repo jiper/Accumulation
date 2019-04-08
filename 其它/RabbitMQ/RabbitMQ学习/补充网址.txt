@@ -1,0 +1,5 @@
+AMQ原理: https://blog.csdn.net/qq_41908912/article/details/79795163
+浅谈消息队列及常见的消息中间件： https://blog.csdn.net/javha/article/details/81030693
+
+RabiitMQ精简介绍（推荐）：https://www.sojson.com/blog/48.html
+rabbitmq-python（推荐）：https://segmentfault.com/blog/rabbitmq-python

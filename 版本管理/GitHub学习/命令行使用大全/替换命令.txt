@@ -1,0 +1,4 @@
+git config --global alias.st status //Ìæ»»ÃüÁî
+
+git config --global color.ui true //¿ªÆôÑÕÉ«ÏÔÊ¾
+

@@ -1,0 +1,33 @@
+https://blog.csdn.net/lijinqi1987/article/details/79037130
+作者：尹超
+日期：2018-10-18
+
+Rabbit MQ C client是一个C函数库，用以支持c环境下与Rabbit MQ brocker的消息通信
+
+1.安装前的依赖包确认，如果没有则先要安装好
+
+2.rabbitmq-c的安装与配置
+git clone https://github.com/alanxz/rabbitmq-c
+cd rabiitmq-c
+mkdir build && cd build
+cmake ..   <-------备注
+cmake --build .
+
+3. 把编译好的库文件配置到系统路径下（此处如果不执行，则二次开发的时候没有相关依赖，很麻烦）
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local ..
+sudo cmake --build . --target install
+
+4. 成功安装后的测试
+开启两个console，分别运行监控程序和消息发送程序
+./examples/amqp_listen localhost 5672 amq.direct test
+./examples/amqp_sendstring localhost 5672 amq.direct test "hello world"
+
+--------------------------------------------------------------------------------
+备注：
+此处cmake如果失败，请看错误提示，根据log补齐相关的依赖包
+常见错误： could not find openssl
+sudo apt-get install -y openssl libssl-dev
+
+安装遇到问题，详见：
+https://blog.csdn.net/leekwen/article/details/25868859
+

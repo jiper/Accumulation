@@ -1,0 +1,101 @@
+1. 安装erlang和rabbitmq
+sudo wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+sudo dpkg -i erlang-solutions_1.0_all.deb
+sudo apt-get update
+sudo apt-get install erlang erlang-nox
+检查erlang是否安装成功
+$erl
+>> halt().   或者ctrl+z退出
+
+echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
+wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install rabbitmq-server
+检查安装情况： ps -ef|grep rabbit 
+
+进入安装文件夹检查安装状态：
+cd /usr/lib/rabbitmq/bin
+sudo ./rabbitmqctl status
+
+
+
+此时如果发现有错误：TCP connection succeeded but Erlang dizstribution failed，请解决cookie不一致的问题
+sudo cp /var/lib/rabbitmq/.erlang.cookie ~/.erlang.cookie
+
+启动rabbitmq的服务
+systemctl start rabbitmq-server
+
+
+启动web管理台
+sudo ./rabbitmq-plugins enable rabbitmq_management 
+
+4. 开启远程web控制台
+sudo rabbitmq-plugins enable rabbitmq_management
+sudo chown -R rabbitmq:rabbitmq /var/lib/rabbitmq/
+
+创建一个新的管理员账号（默认的guest只能监听localhost）
+sudo rabbitmqctl  add_user yinchao 123456
+sudo rabbitmqctl  set_user_tags yinchao administrator
+sudo rabbitmqctl set_permissions -p "/" yinchao ".*" ".*" ".*"
+打开网址并登陆： 127.0.0.1:15672    账号：yinchao       密码：123456 
+
+查看与删除用户（把系统默认的那个guest删了去）
+sudo rabbitmqctl  list_users
+sudo rabbitmqctl delete_user username
+（修改密码语法：rabbitmqctl  oldPassword  Username  newPassword）
+
+5. 新建配置rabbit.config文件，添加远程连接的部分
+配置文件存放地址：/etc/rabbitmq/rabbitmq.config 
+rabbit.config
+[                                                                                                                                   
+{rabbit, [{tcp_listeners, [5672]}, {loopback_users, ["yinchao"]}]}
+].
+
+配置好后测试端口是否已经监听，查看是否可以通过ip:15672的方式在浏览器中远程打开控制台
+再看看控制台的overview界面上，config file是否已经被使用了
+
+
+6.其他内容
+
+3. 检查配置状态并开启server服务
+sudo systemctl start rabbitmq-server.service
+sudo systemctl enable rabbitmq-server.service
+cd /usr/lib/rabbitmq/bin/
+sudo ./rabbitmqctl status
+
+
+//常用服务命令
+查看rabbitmq-server有没有安装好，能查到说明已经安装成功了
+rpm -qa|grep rabbitmq
+
+开启server命令
+sudo service rabbitmq-server start
+sudo service rabbitmq-server restart
+
+关闭服务
+sudo service rabbitmq-server stop
+
+开启服务器维护插件（6个）
+rabbitmq-plugins enable rabbitmq_management 
+
+服务启动和停止命令
+启动：sudo rabbitmq-server start
+关闭： sudo rabbitmq-server stop
+重启： sudo rabbitmq-server restart
+查看状态：sudo rabbitmqctl status
+
+7. 参考链接
+官网：https://www.vultr.com/docs/how-to-install-rabbitmq-on-ubuntu-16-04-47
+CSDN：https://blog.csdn.net/hui1788/article/details/79946619
+
+安装勘误
+出现了Sub-process /usr/bin/dpkg returned an error code错误
+https://www.cnblogs.com/blfbuaa/p/7304921.html
+
+sudo mv /var/lib/dpkg/info /var/lib/dpkg/info.bak
+sudo mkdir /var/lib/dpkg/info
+sudo apt-get update
+sudo apt-get -f install rabbitmq-server
+sudo mv /var/lib/dpkg/info/* /var/lib/dpkg/info.bak
+sudo rm -rf /var/lib/dpkg/info
+sudo mv /var/lib/dpkg/info.bak /var/lib/dpkg/info

@@ -1,0 +1,23 @@
+
+首先明确几个概念
+应答机制：brocker-consumer，RMQ的一种机制用户无需管理，消费者成功消费后对brocker的应答，brocker在收到应答后可以放心删除消息
+
+
+持久化机制：brocker，RMQ的一种机制用户无需管理，消息写入磁盘，防止brocker宕机造成的消息丢失
+消息确认：producer-broker，RMQ的一种功能用户需要coding，确保生产者的消息正确送达到brocker
+发送-应答：producer-consumer，生产者发送消息后等待消费者的应答（此问题必须在应用层去解决，RMQ本身不支持）
+
+注意的问题：
+1. 消息应答默认情况下是自动的，如果设置成手动的，则可以通过命令在合适的时机向brocker发送应答信号
+boolean autoAck = false;
+channel.basicConsume(QUEUE_NAME, autoAck, consumer);
+
+2. 消息队列提供的应答机制只能保证生产者的消息是否正确送达到brocker，至于消费者是否成果处理，消息队列是不管的。需要自己在应用层去解决。
+
+
+发送->应答机制的两种应用层解决方法：
+1. RPC调用
+2. 生产者发布消息之后监听另一个队列b，消费者消费完后把结果压入队列b，生产者从b中获取应答
+
+相关链接：
+confirm机制示例程序：https://blog.csdn.net/u010472499/article/details/70214933

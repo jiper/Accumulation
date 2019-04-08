@@ -1,0 +1,17 @@
+https://www.cnblogs.com/julyluo/p/6265775.html
+
+简而言之：
+exchange参数控制brocker的路由规则，一共有4种
+direct
+topic
+fanout
+header
+
+其中：
+direct要求收发过程的routingkey完全一致
+topic与direct类似，但是可以用通配符（
+fanout不需要匹配，广播模式
+header很少用，根据header内容而不是routingkey来路由
+
+一般如果点对点就用：direct或者topic
+如果广播模式就用： fanout

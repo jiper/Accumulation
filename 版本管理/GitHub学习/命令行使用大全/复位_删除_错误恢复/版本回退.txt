@@ -1,0 +1,15 @@
+版本回退操作比价复杂，详情参阅：http://www.cnblogs.com/toward-the-sun/p/6012908.html
+
+1. 本地版本库中回退到某个版本
+git reset --hard head^  //回退到head的前一个版本
+git reset --hard head~x //回退到head的前x个版本
+
+超级回退
+git reset --hard id    //直接会退到id标志的节点,不需要考虑head
+  注意：id号的查询需要通过 git reflog 来实现
+  通过此命令，可以随时复位到已经提交的任意节点上
+  
+  
+2. 从暂存区回退到工作区
+添加了文件到暂存区，又反悔了怎么办？
+git reset head filename

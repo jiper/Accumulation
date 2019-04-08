@@ -1,0 +1,52 @@
+思路：先理论，后实践。实践的时候先解决有无问题，再解决实用性和性能问题
+1~7 基础篇
+8~12 实用篇
+
+可以参考这个人的博客专栏来写
+https://blog.csdn.net/anzhsoft/article/details/19633107
+
+
+
+1. 什么是消息队列，有啥用
+
+
+2. 常用的消息队列有哪些？如何选型？
+
+
+3. AMQP协议和Rabbit MQ讲解
+https://www.cnblogs.com/luxiaoxun/p/3918054.html
+
+
+4. Rabbit MQ环境搭建，控制台，最简单的测试程序
+
+
+5. Rabbit MQ官方文档获取途径，消息传递机制说明
+
+
+6. python端的应用讲解——pika的实例化应用与讲解
+官网：https://pika.readthedocs.io/en/latest/examples.html
+https://www.cnblogs.com/kerwinC/p/5967584.html
+https://blog.csdn.net/shudaqi2010/article/details/50775330
+
+7. C端的应用讲解
+
+
+8. 高级进阶——HTTP API接口讲解（自定义控制台）
+
+
+9. STL加密通信与认证
+http://www.blogjava.net/qbna350816/archive/2016/08/02/431433.aspx
+
+10. 多线程异步rpc通信
+
+
+11. 消息确认机制
+https://blog.csdn.net/u013256816/article/details/55515234
+大文件发送机制：https://blog.csdn.net/tom06/article/details/78133322
+
+12. 集群的使用
+
+13. 其他杂项
+
+13. 相关链接，文档，论坛等。
+

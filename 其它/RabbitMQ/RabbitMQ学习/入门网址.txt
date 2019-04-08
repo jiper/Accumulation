@@ -1,0 +1,5 @@
+消息队列对比：                   https://blog.csdn.net/HD243608836/article/details/80217591
+python端的讲解：                 https://segmentfault.com/a/1190000014041428
+c++端的GitHub源码：              https://github.com/alanxz/rabbitmq-c
+C++客户端的示例：                https://blog.csdn.net/calmreason/article/details/23346397
+知乎上关于RabbitMQ的C++API索引： https://www.zhihu.com/question/20428371

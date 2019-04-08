@@ -1,0 +1,13 @@
+指令快速预览
+git branch //新增分支
+git checkout //分支切换
+
+
+1. 想要在当前head指向的位置创建一个新的branchName分支
+git branch branchName（注意，head指向并没有发生改变！）
+
+2. 切换到已经存在的branchName分支上
+git checkout branchName 
+
+3. 上述两个命令可以合并，实现创建一个新的分支并切换到新分支上
+git checkout -b branchName

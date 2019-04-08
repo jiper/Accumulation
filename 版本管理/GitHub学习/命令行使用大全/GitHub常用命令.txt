@@ -1,0 +1,10 @@
+1.  git init  //初始化当前文件夹为一个新的git仓库
+2.  git status  //查看状态
+3.  git config --global user.name   //设置用户信息
+    git config --global user.email
+4.  git config --global alias.ci commit //设置全局的别名
+5.  git add test.txt  //将新增的文件添加到暂存区
+6.  git commit -m "comment"   //将暂存区的内容提交并添加comment注释
+7.  ssh-keygen.ext -t rsa -C "yc86247931@126.com" //生成SSH key（保存在C:\Users\用户名\.ssh）
+8.  git remote add origin git@github.com:YinChao126/Test.git  //本地仓库关联到远程仓库，并为远程仓库取别名为：origin
+9:  git push origin master  //把本地分支push到远程别名下的master分支

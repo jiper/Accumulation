@@ -1,0 +1,2 @@
+1、ubuntu 时区设定
+  https://blog.csdn.net/kelong_xhu/article/details/40150247

@@ -1,0 +1,16 @@
+别名设置
+git config --global alias.st status //用st代替命令status
+以后就可以 $ git st 了
+
+别名取消
+cat ~/.gitconfig
+把对应的那一行删去即可
+$ cat .gitconfig
+[alias]
+    co = checkout
+    ci = commit
+    br = branch
+    st = status
+[user]
+    name = Your Name
+    email = your@email.com

@@ -1,0 +1,12 @@
+
+
+连接数查看
+rabbitmqctl status
+
+基础概念：
+RMQ的socket连接数是文件描述符(fd)的子集，最大连接数和最大文件句柄数都受限于fd，两者此消彼长
+初始：可用socket描述符 = 0.8 * fd，
+
+
+参考链接：
+RabbitMQ能打开的最大连接数 https://blog.csdn.net/huoyunshen88/article/details/42779389

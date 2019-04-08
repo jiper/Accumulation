@@ -1,0 +1,8 @@
+https://www.cnblogs.com/wzd5230/p/3916587.html
+https://blog.csdn.net/yuleicqut/article/details/50933441 （比较详细）
+
+编译的一个ARM的程序，会得到这样的信息： ============================================================================== Code (inc. data) RO Data RW Data ZI Data Debug 2730 194 250 8 96 16068 Grand Totals 2730 194 250 8 96 16068 ELF Image Totals 2730 194 250 8 0 0 ROM Totals ============================================================================== Total RO Size (Code + RO Data) 2980 ( 2.91kB) Total RW Size (RW Data + ZI Data) 104 ( 0.10kB) Total ROM Size (Code + RO Data + RW Data) 2988 ( 2.92kB) ============================================================================== Program Size: Code=8044 RO-data=52 RW-data=56 ZI-data=5184 其中： Code指存储到flash【Rom】中的程序代码。 ZI英语是zero initial，就是程序中用到的变量并且被系统初始化为0的变量的字节数，keil编译器默认是把你没有初始化的变量都赋值一个0，这些变量在程序运行时是保存在RAM中的。 RW是可读可写变量，就是初始化时候就已经赋值了的，RW + ZI就是你的程序总共使用的RAM字节数。 RO是程序中的指令和常量，这些值是被保存到Rom中的。 Total ROM Size (Code + RO Data + RW Data)这样所写的程序占用的ROM的字节总数，也就是说程序所下载到ROM flash 中的大小。为什么Rom中还要存RW，因为掉电后RAM中所有数据都丢失了，每次上电RAM中的数据是被重新赋值的，每次这些固定的值就是存储在Rom中的，为什么不包含ZI段呢，是因为ZI数据都是0，没必要包含，只要程序运行之前将ZI数据所在的区域一律清零即可。包含进去反而浪费存储空间。 实际上，ROM中的指令至少应该有这样的功能： 1. 将RW从ROM中搬到RAM中，因为RW是变量，变量不能存在ROM中。 2. 将ZI所在的RAM区域全部清零，因为ZI区域并不在Image中，所以需要程序根据编译器给出的ZI地址及大小来将相应得RAM区域清零。ZI中也是变量，同理：变量不能存在ROM中。 在程序运行的最初阶段，RO中的指令完成了这两项工作后C程序才能正常访问变量。否则只能运行不含变量的代码。
+
+
+注意：
+1、map文件中RW和ZI均值全局变量，局部变量的位置在堆栈，属于运行时分配。所有程序的RAM需求=RW+ZI+堆栈空间

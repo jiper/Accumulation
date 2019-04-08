@@ -1,0 +1,22 @@
+git --version  		查看版本号
+
+1.配置用户信息
+git config --global user.name "xx"
+git config --global user.email xxxxxxx   //兴建用户信息
+
+2.自己建立工作文件夹
+cd ......(假设为YinChao/WorkSpace)
+mkdir demo	//把这个当做一个仓库
+cd demo
+
+3.初始化仓库
+git init
+
+4.兴建任何感兴趣的内容
+echo "hello" > welcome.txt
+
+5.添加新文件到版本库
+git add welcom.txt
+
+6.提交
+git commit -m "说明。。。。"

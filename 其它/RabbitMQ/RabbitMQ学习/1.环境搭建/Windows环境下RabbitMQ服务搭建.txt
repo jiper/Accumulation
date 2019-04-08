@@ -1,0 +1,25 @@
+https://blog.csdn.net/wdq892157341/article/details/50920719
+
+1. 安装Erlang开发包（下文所述的“环境变量”统一配置到"系统变量"中）
+配置环境变量 ERLANG_HOME "安装根目录"
+添加到PATH %ERLANG_HOME%\bin
+
+2. 安装RabbitMQ
+  2.1 下载地址：  http://www.rabbitmq.com/download.html
+  2.2 配置环境变量 RABBITMQ_SERVER "安装根目录"
+      添加到PATH %RABBITMQ_SERVER%\sbin
+  2.3 修改端口号和心跳时间：
+  找到RabbitMQ安装路径下的etc文件夹下，将rabbitmq.config.example备份一份，并修改为config类型的文件，即为rabbitmq.config
+  打开rabbitmq.config，找到tcp_listeners这个key,将其前面的注释%%去掉，然后将后面的整数值5672改为你想要的端口号
+  找到heartbeat,去掉注释，将后面的心跳时间改为你想要的值，并记得去掉后面的逗号！！！
+  2.4 系统变量中新增变量名"RABBITMQ_CONFIG_FILE"，值为你Rabbit MQ安装目录下的etc/rabbitmq(注意，不要加;)
+  说明：其中的配置文件 rabbitmq.config默认是在C:\Users\Administrator\AppData\Roaming\RabbitMQ下，
+  关于配置的详细配置可以参看http://www.rabbitmq.com/configure.html
+（rabbitmq启动失败多半是由于端口被占的原因，cmd查看端口被占命令：>netstat –ano|findstr“端口”?>tasklist|findstr “pid”）
+
+3. 启动服务
+  3.1 浏览定位到C:\Program Files\RabbitMQ Server\rabbitmq_server-3.7.8\sbin目录下
+    依次开启rabbitmq-plugins.bat，rabbitmq-env.bat，rabbitmq-server.bat，rabbitmq-service.bat几个服务
+  3.2 打开cmd命令行，cd到上述的sbin目录下执行： rabbitmq-plugins enable rabbitmq_management
+  3.3 已经完全开启了rabbitmq的服务了，enjoy！
+    此时可以打开浏览器在console上监测，默认地址：localhost:15672， 账号：guest   密码： guest

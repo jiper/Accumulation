@@ -1,0 +1,15 @@
+RMQ成功安装后，可以通过自带的控制台来监测服务状态
+
+默认状态下，只能使用默认状态，本地登陆
+浏览器访问地址： localhost:15672
+默认账户密码均为： guest
+
+如果想要使能远程管理功能，必须：
+1. 重新建立一个新的用户，并为其开通administrator权限
+2. 可选的是否删除默认的guest账户
+
+
+RMQ官方提供了一组HTTP的API接口
+实际上可以通过这些API获取控制台上一切信息，进一步可以利用该API做一个自定义控制台
+官网资料地址：https://cdn.rawgit.com/rabbitmq/rabbitmq-management/v3.7.9/priv/www/api/index.html
+网上自定义控制台资源：https://blog.csdn.net/cloudmq/article/details/54633769

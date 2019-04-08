@@ -1,0 +1,24 @@
+如果不小心把分支删除了，后面发现搞错了怎么办？
+
+1. git log -g
+仔细查看整个版本的修改日志
+查到被删除的分支的最新提交记录，找出一个id号
+
+例如：
+commit 3eac14d05bc1264cda54a7c21f04c3892f32406a
+Reflog: HEAD@{1} (fdipzone <fdipzone@sina.com>)
+Reflog message: commit: add test.txt
+Author: fdipzone <fdipzone@sina.com>
+Date:   Sun Jan 31 22:26:33 2016 +0800
+
+    add test.txt
+    
+把这个3eac14d05bc1264cda54a7c21f04c3892f32406a记录下来
+
+
+2. 建立一个用于恢复的新分支
+语法：git branch NewBranchName commit_id
+举例：git branch recover_branch 3eac14d05bc1264cda54a7c21f04c3892f32406a
+
+3. 切换到recover_branch分支上查看是否得到了恢复
+git checkout recover_branch

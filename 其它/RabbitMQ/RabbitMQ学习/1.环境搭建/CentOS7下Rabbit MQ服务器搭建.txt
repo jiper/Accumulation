@@ -1,0 +1,55 @@
+https://blog.csdn.net/zheng911209/article/details/49945677
+
+安装Erlang
+yum install erlang
+
+安装rabbitmq-server 
+rpm -Uvh http://www.rabbitmq.com/releases/rabbitmq-server/v3.5.6/rabbitmq-server-3.5.6-1.noarch.rpm
+
+查看rabbitmq-server有没有安装好，能查到说明已经安装成功了
+rpm -qa|grep rabbitmq
+
+
+开启server命令
+sudo service rabbitmq-server start
+
+关闭服务
+sudo service rabbitmq-server stop
+
+查看当前服务状态
+rabbitmqctl status
+
+开启服务器维护插件（6个）
+rabbitmq-plugins enable rabbitmq_management 
+
+用户配置
+创建新的用户：
+sudo rabbitmqctl  add_user yinchao 123456
+sudo rabbitmqctl  set_user_tags yinchao administrator
+
+查看与删除用户（把系统默认的那个guest删了去）
+sudo rabbitmqctl  list_users
+sudo rabbitmqctl delete_user username
+修改密码：
+rabbitmqctl  oldPassword  Username  newPassword
+
+(注意：开启防火墙上的端口号：15672和5672)
+此时可以通过外网访问控制台了：
+http://47.98.216.118:15672/
+
+
+异常处理：
+连接外网时出现error信息，
+403, ‘ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN’
+查看控制台：
+显示：
+
+
+增加语句： rabbitmqctl set_permissions -p / YOUR_USERNAME ".*" ".*" ".*"
+
+仍然解决不了：
+https://www.cnblogs.com/wzjbk/p/6057137.html
+修改rabbitmq.conf文件！
+
+关键问题可能在于rabbitmq.config文件
+RabbitMQ/etc/rabbitmq.config

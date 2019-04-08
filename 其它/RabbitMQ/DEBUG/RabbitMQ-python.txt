@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+----------------------send.py--------------------------------
+import pika
+
+#ÓëRabbitMQ·þÎñÆ÷½¨Á¢Á¬½Ó
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()   
+
+#ÉùÃ÷¶ÓÁÐ
+#durable²ÎÊýÓÃÓÚÉèÖÃ¶ÓÁÐÎª³Ö¾ÃµÄ£¬ÕâÑùRabbitMQÍË³ö»ò±ÀÀ££¬¶ÓÁÐÖÐµÄÐÅÏ¢µÃÒÔ±£³Ö
+channel.queue_declare(queue='task_queue', durable=True)
+
+#´´½¨exchange
+channel.exchange_declare(exchange='logs',
+                         exchange_type='fanout')
+
+
+#basic_publishÎªÏûÏ¢·¢ËÍµÄÖ÷Ìå
+channel.basic_publish(exchange='logs',
+                      routing_key='hello',
+                      body='Hello World£¡'
+                      properties=pika.BasicProperties(
+                          delivery_mode=2,  # È·±£ÏûÏ¢ÊÇ³Ö¾ÃµÄ)
+                       )
+ 
+                      
+print(" [x] Sent 'Hello World!'")
+connection.close()
+
+------------------------------------------------------
+import pika
+
+#ÓëRabbitMQ·þÎñÆ÷½¨Á¢Á¬½Ó
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
+
+#durable²ÎÊýÓÃÓÚÉèÖÃ¶ÓÁÐÎª³Ö¾ÃµÄ£¬ÕâÑùRabbitMQÍË³ö»ò±ÀÀ££¬¶ÓÁÐÖÐµÄÐÅÏ¢µÃÒÔ±£³Ö
+channel.queue_declare(queue='task_queue', durable=True)
+
+#ÉùÃ÷°ó¶¨
+channel.queue_bind(exchange=exchange_name,
+                   queue=queue_name,
+                   routing_key='black')
+                   
+
+#¶¨Òå»Øµ÷º¯Êý
+def callback(ch, method, propertites, body):
+    print(" [x] Received {}".format(body))
+
+#basic_consumeÎªÏûÏ¢·¢ËÍµÄÖ÷Ìå
+#no_ack²ÎÊýÄ¬ÈÏÎªTrue£¬±íÊ¾´ò¿ªÁËÏûÏ¢È·ÈÏ£¬Ïû·ÑÕßÊÕµ½ÏûÏ¢²¢´¦ÀíÏûÏ¢ºó£¬»á·¢»ØackÏûÏ¢¡£´Ë»úÖÆÈ·±£Ã»ÓÐÐÅÏ¢¶ªÊ§
+channel.basic_consume(callable,
+                      queue='hello',
+                      no_ack=True)
+
+#prefetch_countÖ¸¶¨Ã¿´Î·¢·Å¸øÓÃ»§µÄÏûÏ¢Êý
+channel.basic_qos(prefetch_count=1)
+
+print(' [*] Waiting for messages. To exit press CTRL+C')
+
+#¼àÌý
+channel.start_consuming()

@@ -1,0 +1,59 @@
+-------------------------------------------------------------------
+基础功能
+-------------------------------------------------------------------
+启动MySQL： mysql -uroot -p
+
+查看database
+show databases;
+
+创建/删除database 
+create database anack_sql;
+drop database anack_sql;
+
+切换database
+use test;
+
+查看当前database下的list名称
+show tables;
+
+查看已建立的表的结构    desc
+desc test_list;
+
+为当前database建立一个具体的表   create
+create table test_list
+(
+    name VARCHAR(10),
+    age VARCHAR(4)
+);
+删除已建立的表（谨慎使用，无警告强制删除）   drop
+drop table test_list;
+
+
+
+插入数据    insert
+insert into test_list(name,age)
+values('yinchao','29');
+
+查看表的具体内容    select
+select *from test_list;
+
+-------------------------------------------------------------------
+进阶功能
+-------------------------------------------------------------------
+寻找特定条目    where
+select *from test_list
+where name='yinchao';
+
+寻找特定列下的特定条目 
+select name, age from test_list
+where name = 'yinchao';
+
+
+修改mysql某个用户的密码
+用SET PASSWORD命令
+1、打开终端win+r输入cmd回车即可打开；
+2、通过mysql -u用户名 -p指定root用户登录MySQL，输入后回车会提示输入密码。
+3、修改MySQL的root用户密码，格式：mysql> set password for 用户名@localhost = password('新密码'); 例子：mysql> set password for root@localhost = password('shapolang'); 上面例子将用户root的密码更改为shapolang　
+
+
+

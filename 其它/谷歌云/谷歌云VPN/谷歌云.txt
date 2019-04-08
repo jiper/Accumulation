@@ -1,0 +1,36 @@
+--------- V2Ray 配置信息 -------------
+
+ 地址 (Address) = 34.80.146.232
+
+ 端口 (Port) = 6666
+
+ 用户ID (User ID / UUID) = 01af6b71-47f3-42ec-b555-0436ddc96983
+
+ 额外ID (Alter Id) = 233
+
+ 传输协议 (Network) = tcp
+
+ 伪装类型 (header type) = none
+
+---------- END -------------
+
+V2Ray 客户端使用教程: https://v2ray6.com/post/4/
+
+提示: 输入 v2ray url 可生成 vmess URL 链接 / 输入 v2ray qr 可生成二维码链接
+
+
+---------- Shadowsocks 配置信息 -------------
+
+ 服务器地址 = 34.80.146.232
+
+ 服务器端口 = 666
+
+ 密码 = 233blog.com
+
+ 加密协议 = aes-256-cfb
+
+ SS 链接 = ss://YWVzLTI1Ni1jZmI6MjMzYmxvZy5jb21AMzQuODAuMTQ2LjIzMjo2NjY=#v2ray6.com_ss_34.80.146.232
+
+ 备注: Shadowsocks Win 4.0.6 客户端可能无法识别该 SS 链接
+
+提示: 输入 v2ray ssqr 可生成 Shadowsocks 二维码链

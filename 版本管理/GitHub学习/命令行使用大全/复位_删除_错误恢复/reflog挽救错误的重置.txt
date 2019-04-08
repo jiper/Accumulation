@@ -1,0 +1,9 @@
+1. 查看历史修改记录
+git reflog 或者
+git reflog show master | head -5 	//查看当前的修改情况
+
+2. reset重写到之前的节点
+git reset --hard master@{2}	//返回到前两步的状态
+
+3. 查看提交历史
+git log --oneline
