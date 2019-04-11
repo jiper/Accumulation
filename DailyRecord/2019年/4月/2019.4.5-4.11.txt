@@ -71,6 +71,9 @@ https://www.linuxidc.com/Linux/2016-05/131244.htm
 linux复制文件夹
 cp -r
 
+makefile:
+http://www.runoob.com/linux/linux-file-content-manage.html
+
 
 
    
