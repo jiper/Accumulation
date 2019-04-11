@@ -74,6 +74,9 @@ cp -r
 makefile:
 http://www.runoob.com/linux/linux-file-content-manage.html
 
+UHD驱动
+http://files.ettus.com/manual/index.html
+
 
 
    
