@@ -71,11 +71,22 @@ https://www.linuxidc.com/Linux/2016-05/131244.htm
 linux复制文件夹
 cp -r
 
-makefile:
-http://www.runoob.com/linux/linux-file-content-manage.html
+makefile:（）
+https://blog.csdn.net/weixin_38391755/article/details/80380786
 
 UHD驱动
 http://files.ettus.com/manual/index.html
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+git克隆github仓库的某个分支:
+使用Git下载v.2.8.1分支代码，使用命令：git clone -b v2.8.1 https://git.oschina.net/oschina/android-app.git
+
+git HEAD和版本回退
+https://blog.csdn.net/jeffasd/article/details/51782221
+
+git理解HEAD指针&branch指针（不是很理解）
+https://blog.csdn.net/claroja/article/details/78858533
 
 
 
