@@ -4,6 +4,7 @@ object = mytool1.o mytool2.o main.o
 
 main: $(object)
 	g++ -o $@ $(object)
+	rm *.o
 	
 
 .PHONY : clean
