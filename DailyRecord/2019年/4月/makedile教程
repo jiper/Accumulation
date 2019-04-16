@@ -35,7 +35,14 @@ gcc -o hello hello.c -I /home/hello/include -L /home/hello/lib -lworld
  1、-std=c++11 ：GCC支持最新的C++11标准
  2、-pthread：用gcc编译使用了POSIX thread的程序时通常需要加额外的选项(我的理解涉及多线程时需要的选项)
  3、-O2：优化选项
- 4、 
+ 4、 -L ：静态库
+ ５、　-l:动态库
+ 
+ TARGET = $(notdir $(CURDIR))
+SOURCES = $(wildcard *.cpp)
+HEADERS = $(wildcard *.h)
+１、
+２、$(wildcard *.cpp)表示当前目录下的所有cpp文档
  
  
  

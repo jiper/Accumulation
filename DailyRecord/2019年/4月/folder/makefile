@@ -1,12 +1,10 @@
-VPATH = src
 
-object = mytool1.o mytool2.o main.o
+TARGET = $(notdir $(CURDIR))
 
-main: $(object)
-	g++ -o $@ $(object)
-	rm *.o
+main:main.o
+	echo &(TARGET)
+	g++ -o main main.o
 	
+main.o:main.cpp
+	g++ -c main.cpp
 
-.PHONY : clean
-clean :
-	rm main $(object)
