@@ -1,0 +1,7 @@
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/studentlib_shared/CMakeFiles/install.dir
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/studentlib_shared/CMakeFiles/list_install_components.dir
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/studentlib_shared/CMakeFiles/rebuild_cache.dir
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/studentlib_shared/CMakeFiles/edit_cache.dir
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/studentlib_shared/CMakeFiles/testStudent.dir
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/studentlib_shared/CMakeFiles/install/strip.dir
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/studentlib_shared/CMakeFiles/install/local.dir

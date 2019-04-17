@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/student/src/Student.cpp
+iostream
+-
+Student.h
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/student/src/Student.h
+
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/student/src/mainapp.cpp
+Student.h
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/student/src/Student.h
+
+include/Student.h
+string
+-
+

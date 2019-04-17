@@ -1,0 +1,3 @@
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/student/CMakeFiles/rebuild_cache.dir
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/student/CMakeFiles/edit_cache.dir
+/home/gjun/桌面/JianLPeng/workspace/exploringBB/extras/cmake/student/CMakeFiles/testStudent.dir

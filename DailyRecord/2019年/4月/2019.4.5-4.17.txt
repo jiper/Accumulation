@@ -88,6 +88,16 @@ https://blog.csdn.net/jeffasd/article/details/51782221
 git理解HEAD指针&branch指针（不是很理解）
 https://blog.csdn.net/claroja/article/details/78858533
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cmake
+https://blog.csdn.net/iceboy314159/article/details/80398084
+https://blog.csdn.net/qwq1503/article/details/85866602
+包括：
+1、编译生成可执行文件
+2、编译生成动态库、静态库
+3、使用动态库、静态库
+
+
 
 
    
