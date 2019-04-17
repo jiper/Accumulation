@@ -1,0 +1,9 @@
+header:保存头文件
+src:保存源文件，以及生成.o文件、静态库和动态库的编译规则
+    make:生成.o文件
+    make createLib:生成静态库（必须先make）
+    make createDll:生成动态库（必须先make）
+    make clean:删除.o .a .so
+test:make功能
+    make testLib:测试静态库
+    make testDll:测试动态库（执行程序前，需要指明动态库的路径）

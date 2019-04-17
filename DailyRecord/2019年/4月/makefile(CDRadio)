@@ -1,8 +1,0 @@
-OP = -std=c++11 -pthread -O2 -L ./ -lCDRadioLink -L/lib/ -luhd -lboost_system -lboost_program_options -lboost_thread 
-
-TARGET = $(notdir $(CURDIR))
-SOURCES = $(wildcard *.cpp)
-HEADERS = $(wildcard *.h)
-
-$(TARGET) : $(SOURCES) $(HEADERS)
-	g++ -o CDRadioTx $(SOURCES) $(OP) 

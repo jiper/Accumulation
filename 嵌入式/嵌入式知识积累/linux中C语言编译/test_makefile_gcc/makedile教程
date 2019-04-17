@@ -41,7 +41,7 @@ gcc -o hello hello.c -I /home/hello/include -L /home/hello/lib -lworld
  TARGET = $(notdir $(CURDIR))
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h)
-１、
+１、CURDIR表示当前路径，notdir将路径变为名称（只保留最内层文件夹的名称）
 ２、$(wildcard *.cpp)表示当前目录下的所有cpp文档
  
  

@@ -1,4 +1,4 @@
-#include "../include/hybrid.h"
+#include "hybrid.h"
 
 #include <iostream>
 using namespace std;
