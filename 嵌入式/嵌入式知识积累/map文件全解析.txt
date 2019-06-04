@@ -1,0 +1,23 @@
+--------------------------------------
+需要解决的几个问题
+1、map文件中的Local Symbols和Global Symbols指什么？局部变量包含在Local Symbols中吗？
+2、RAM空间和flash空间怎么计算？RO-data、RW-data、ZI-data中是否包含局部变量？计算RAM空间时是否需要加上堆栈空间?
+
+总结：map文件作用：
+1、Image Symbol Table：映射符号表，包含变量、代码、堆栈的位置和大小
+
+固件空间计算
+ 1）Code指存储到flash【Rom】中的程序代码。
+ 2） ZI英语是zero initial，就是程序中用到的变量并且被系统初始化为0的变量的字节数，keil编译器默认是把你没有初始化的变量都赋值一个0，这些变量在程序运行时是保存在RAM中的。（堆栈空间属于ZI-data）
+3)RW是可读可写变量，就是初始化时候就已经赋值了的
+Total RW Size = RW Data + ZI Data
+Total ROM Size = Code + RO Data +RW Data
+
+局部变量和堆栈空间
+1)局部变量不包含在Local Symbols中
+   局部变量是运行时分配的（内存或者寄存器中），函数调用时压栈出栈特指寄存器局部变量。
+  Local Symbols和Global Symbols中的data特指静态全局变量和非静态全局变量。
+2、堆栈空间包含在ZI-data中
+
+
+
