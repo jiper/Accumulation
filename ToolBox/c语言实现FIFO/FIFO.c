@@ -10,6 +10,13 @@ History: 修改历史记录列表，每条修改记录应包括修改日期、�
 #include "FIFO.h"
 #include <stdlib.h>
 
+/*****************************************************************************
+函数名：CreateFIFO
+功能描述:根据结构体创建FIFO
+参数:
+	pFIFO_Object:结构体变量，保存创建FIFO的参数，包括数据类型，FIFO容量
+返回值 : 成功返回FIFO_OK，否则返回FIFO_ERROR
+*****************************************************************************/
 int CreateFIFO(pFIFO pFIFO_Object)
 {
 	pFIFO_Object->FIFO_Buff = (void*)malloc(pFIFO_Object->TypeLength * pFIFO_Object->BuffSize);  //开辟TypeLength*BuffSize内存空间
@@ -22,6 +29,14 @@ int CreateFIFO(pFIFO pFIFO_Object)
 	return FIFO_OK;
 }
 
+
+/*****************************************************************************
+函数名：DestroyFIFO
+功能描述:销毁FIFO，主要是释放buffer空间
+参数:
+	pFIFO_Object:FIFO结构体变量
+返回值 : 无
+*****************************************************************************/
 void DestroyFIFO(pFIFO pFIFO_Object)
 {
 	if (pFIFO_Object->FIFO_Buff != NULL)
@@ -41,6 +56,13 @@ int32_t IsFifoEmty(pFIFO pFIFO_Object)
 	
 }
 
+/*****************************************************************************
+函数名：GetBuffOccupation
+功能描述:获取FIFO已经占用的空间
+参数:
+	pFIFO_Object:FIFO结构体变量
+返回值 : 已经占用的空间长度，如返回5，表示已经占用5*TypeLength的空间
+*****************************************************************************/
 int32_t GetBuffOccupation(const pFIFO pFIFO_Object)
 {
 	if (pFIFO_Object->rear >= pFIFO_Object->front)
